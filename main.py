@@ -193,7 +193,7 @@ def t3_fazroc(dados1,dados2,nomecarac='',plotar=True):
     classes=np.zeros(Np1+Np2)
     classes[0:Np1]=-1
     classes[Np1:Np1+Np2]=1
-    dados=np.concatenate((dados1,dados2),axis=0)
+    dados=np.squeeze(np.concatenate((dados1,dados2),axis=0))
     s=dados.argsort()
     thresholds=dados[s]
     classessort=classes[s]
