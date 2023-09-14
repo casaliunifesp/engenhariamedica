@@ -73,7 +73,7 @@ def t2_extraicarac(sin,freq,bandas,method='fft',nwelch=5):
      nomesc[4]='f-central'
 
     #potencia na frequencia central
-     ifc=np.abs(xf-car[s,4])==np.min(np.abs(xf-car[s,4]))
+     ifc=np.abs(xf-car[s,4]).argmin()
      car[s,5]=yf[ifc]
      nomesc[5]='P na fc'
 
@@ -134,7 +134,7 @@ def t3_normaliza(dados,metodo='linear',r=1):
         dadosnorm=dadosnorm - (np.min(dadosnorm)+1)
     elif metodo=='sfm':
         x=dados-np.mean(dados)
-        x=-x/(r*np.std(dados))
+        x=-x/(r*np.std(dados,ddof=1))
         dadosnorm=1/(1+np.exp(x))        
     return dadosnorm
 
@@ -146,6 +146,12 @@ def t3_preselec(dados1,dados2,alfa,verbose=True):
     # - dados1 = array características x padrões da primeira classe
     # - dados2 = array características x padrões da segunda classe
     # - alfa = taxa de erro tipo I do teste (por exemplo, alfa=0.05)
+    #Outputs:
+    # - rel = lista com os indices das características relevantes (significativas)
+    # - p = valor p do teste estatístico para cada característica
+    if len(np.shape(dados1))==1: #controle para caso uma única característica tenha sido carregada sem a dimensão apropriada
+        dados1=np.array([dados1])
+        dados2=np.array([dados2])
     Ncarac,Npad=dados1.shape
     Ncarac2,Npad2=dados2.shape
     if Ncarac2!= Ncarac:
