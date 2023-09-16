@@ -100,7 +100,7 @@ def t3_remoutliers(padroes,p,method='desvio'):
    #Encontra outlires baseando-se em dois métodos possiveis:
     #  method = 'desvio': mediana +-p x desvio
     #  method = 'quartis': quartis  +-p x intervalo entre quartis
-    # padroes = numpy array de uma característica (N x 1)
+    # padroes = numpy array de uma característica (N x 1), (1 x N), (N,)
     # p = numero de desvios ou de intervalos entre quartis a ser empregado 
     # retorna lista com as posicoes dos outliers no array
     if method =='desvio':
@@ -119,7 +119,7 @@ def t3_remoutliers(padroes,p,method='desvio'):
 
 def t3_normaliza(dados,metodo='linear',r=1):
     #Realiza a normalizacao de um conjunto de padroes
-    # dados = numpy array com padroes de uma caracteristica N x 1
+    # dados = numpy array com padroes de uma caracteristica (N x 1), (1 x N), (N,)
     # metodo ='linear' : normalizacao linear (padrao)
     #        = 'mmx': limitada entre -1 e 1
     #        = 'sfm': rescala nao linear no intervalo 0 a 1
