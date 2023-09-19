@@ -558,7 +558,7 @@ def t6_plotaperceptron(classe1,classe2,w,titulo,angulo=(-140,40)):
     # - w = vetor de pesos do perceptron
     # - titulo = string com o titulo do grafico
     # - angulo = angulo de visualização (para o caso de 3 características)
-    L=np.size(w)
+    L=np.size(w) #dimensão do Perceptron (estendida, ou seja = número de características + 1)
     if L==3:
         plt.figure()
         plt.plot(classe1[0,:],classe1[1,:],'bo',fillstyle='none')

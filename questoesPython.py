@@ -15,10 +15,13 @@ Universidade Federal de São Paulo
 import numpy as np
 import matplotlib.pyplot as plt
 
+#ÍNDICE:
+#Q1 - indexar arrays em python (linha 24)
+#Q2 - separar classes juntas com o reshape (linha 88)
+#Q3 - juntar e separar classes com número variável de classes e características (linha 134)
 
 
-
-#%% Questão sobre indexação de arrays em python:
+#%% Q1 - Questão sobre indexação de arrays em python:
 
 #Em aprendizado de máquina é muito comum trabalharmos com
 #uma matriz de dados no formato "Características x Padrões" 
@@ -81,7 +84,8 @@ print(np.array_equal(Dados_juntos,Dados))
 
 
 
-# %%Questão sobre mudanças das dimensões em arrays:
+
+# %%Q2 - Questão sobre mudanças das dimensões em arrays:
 
 #Por vezes queremos transformar uma matriz bidimensional em
 # um vetor. Por exemplo, imagine que você tem uma matriz Nc x Np que 
@@ -125,5 +129,79 @@ plt.ylabel('Valor da característica')
 plt.title('Depois de Juntar e Separar')
 plt.show()
 
+
+
+#%% Q3 - Questão sobre juntar e separar múltiplas classes em matrizes.
+
+#A melhor forma de trabalhar com dados em Aprendizado de Máquina
+#Supervisionado é usar uma matriz contendo todos os padrões
+#de todas as características e um vetor com a informação das classes.
+#Mas por vezes partimos de classes separadas e precisamos juntar e separá-las
+# com flexibilidade. 
+#Para ver como fazer isso, siga os passos abaixo,
+
+#Suponha que tenhamos 3 classes distintas com 5 características e 90 padrões no total:
+classe0 = np.random.rand(5,20)
+classe1 = np.random.rand(5,30)
+classe2 = np.random.rand(5,40)
+ 
+
+#Vamos juntar as três classes. Para isso, vamos definir uma função que
+# poderá ser usada em outros problemas do curso se necessário:
+
+def juntar(dados):
+    #Nesta função, a variável "dados" deve ser uma lista de classes. 
+    # Cada elemento da lista corresponde
+    #a um array com padrões x características (formato N x L), onde L é fixo
+    #para todas as classes.
+    #A função retorna uma matriz padrões x características, contendo 
+    # todos os padrões de todas as classes e um vetor contendo o número da 
+    # classe de cada padrão.
+
+    Nc=len(dados) #número de classes
+    #verificando se as dimensões estão corretas:
+    L=np.unique([np.size(s,axis=1) for s in dados]) #número de características
+    if len(L)>1:
+        print('ERRO: todas classes devem ter o mesmo número de características!')
+
+    dados_todos=dados[0]
+    classes_todos=np.zeros(np.size(dados[0],axis=0),)
+    for i in range(1,Nc):
+        dados_todos=np.concatenate((dados_todos,dados[i]))
+        classes_todos=np.concatenate((classes_todos,i+np.zeros(np.size(dados[i],axis=0),)))
+    return dados_todos,classes_todos
+
+#Para usar esta função, vamos colocar cada classe dentro de uma lista. 
+#Note que a função exige dados no formao padrões x características, mas nossas 
+# classes estão no formato características x padrões. Então 
+#precisamos também transpor as matrizes (método "T"):
+dados=[]
+dados.append(classe0.T)
+dados.append(classe1.T)
+dados.append(classe2.T)
+
+#Agora vamos chamar a função para juntar as classes:
+dados_todos,classes_todos=juntar(dados)
+
+#Veja a dimensão do output com os dados:
+print(np.shape(dados_todos))
+#Ou seja, temos os padrões de todas as classes juntos na primeira dimensão.
+
+#Note que as classes estão no vetor "classes_todos":
+print(np.shape(classes_todos))
+
+#Com as classes juntas podemos, por exemplo, normalizar as características ou
+#realizar outros procedimentos. 
+
+#E se for necessário separá-las novamente, basta usar a técnica vista na Q1 acima:
+dados_classe0=dados_todos[classes_todos==0,:]
+dados_classe1=dados_todos[classes_todos==1,:]
+dados_classe2=dados_todos[classes_todos==2,:]
+
+#Veja como, após transpormos as matrizes, obtemos os dados separados corretamente, 
+# exatamente como as classes originais:
+print(np.array_equal(dados_classe0.T,classe0))
+print(np.array_equal(dados_classe1.T,classe1))
+print(np.array_equal(dados_classe2.T,classe2))
 
 
