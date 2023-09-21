@@ -231,7 +231,7 @@ def t3_FDR(dado1,dado2):
     #Calcula o critério FDR entre duas matrizes caracteristicas x padroes
     #Inputs:
     # - dado1 = característica x padrões, classe 1
-    # - dado2 = característica x padrões, classe 1
+    # - dado2 = característica x padrões, classe 2
     #Outputs:
     # - fdr = valores de FDR para cada característica
     m1=np.mean(dado1,1)
@@ -245,7 +245,7 @@ def t3_selescalar(correl,criterio,peso):
     #Realiza a seleção escalar de características a partir de uma matriz de correlações e um vetor de critérios
     #Inputs:
     # - correl = matriz de correlações entre as características
-    # - criterio = vetor de critérios
+    # - criterio = vetor de critérios (exemplo: AUC para cada característica, FDR para cada característica)
     # - peso = array com dois elementos [A,B], contendo o peso do critério(A) e o da correlação (B)
     #Outputs:
     # - ordem = ordem das características para seleção 
