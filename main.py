@@ -246,7 +246,7 @@ def t3_selescalar(correl,criterio,peso):
     #Inputs:
     # - correl = matriz de correlações entre as características
     # - criterio = vetor de critérios
-    # - peso = peso da correlação na seleção escalar
+    # - peso = array com dois elementos [A,B], contendo o peso do critério(A) e o da correlação (B)
     #Outputs:
     # - ordem = ordem das características para seleção 
     Nc=len(criterio)
