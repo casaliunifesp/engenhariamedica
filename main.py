@@ -374,8 +374,8 @@ def gerandodadosgaussianos(medias,covariancias,N,priors,plotar=True, seed=0,angu
     # -covariancia =  classes x caracteristicas x caracteristicas (matrizes de 
     #    covariancia para cada classe)
     # -N = numero de padroes a serem gerados
-    # -priors = classes x 1 (prior de cada classe: probabilidade de um padrao 
-    #    pertencer a cada classe)
+    # -priors = array classes x 1 (prior de cada classe: probabilidade de um padrao 
+    #    pertencer a cada classe), funciona tb com uma lista.
     # - plotar = True (faz grafico - 2 ou tres dimensoes), False (nao faz grafico)
     # -seed = controle do seed na geracao de dados aleatorios
     # - angulo = angulo da visualizacao em caso de plot 3d.
@@ -394,18 +394,18 @@ def gerandodadosgaussianos(medias,covariancias,N,priors,plotar=True, seed=0,angu
     if np.sum(priors)!=1 :
         print('Erro: confira os valores dos priors.')
         return
-    Ni=tuple(np.round(priors*N))
     np.random.seed(seed)      
     for i in range(M):
+       Ni=np.round(priors[i]*N)
        if np.all(np.linalg.eigvals(covariancias[i]) > 0)==False :
            print('Erro: confira os valores da covariancia.')
-       x=np.random.multivariate_normal(medias[i],covariancias[i],size=int(Ni[i])) 
+       x=np.random.multivariate_normal(medias[i],covariancias[i],size=int(Ni)) 
        if i==0:
            dadossim=x.T
-           classessim=np.zeros(int(Ni[i]),)
+           classessim=np.zeros(int(Ni),)
        else: 
            dadossim=np.concatenate((dadossim,x.T),axis=1)
-           classessim=np.concatenate((classessim,np.zeros(int(Ni[i]),)+i),axis=0)
+           classessim=np.concatenate((classessim,np.zeros(int(Ni),)+i),axis=0)
 
     if plotar: 
         if L==2: #2 caracteristicas, plot 2d
