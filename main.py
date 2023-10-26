@@ -515,7 +515,7 @@ def t6_perceptron(classe1, classe2, rho=0.05,maxsteps=10000):
     # - maxsteps = numero maximo de iteracoes
     #OUTPUT:
     # - ws: vetor com os pesos do classificador 
-    # - hs: indica se perceptron convergiu (1) ou não convergiu (0)
+    # - hs: indica se perceptron convergiu (=0) ou não convergiu (=número de erros do perceptron)
     # - t: número de iterações realizadas
     L1,N1=np.shape(classe1)
     L2,N2=np.shape(classe2)
