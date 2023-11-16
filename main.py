@@ -349,14 +349,15 @@ def t4_svd(dados,m):
      # - v = autovetores
      # - mse = erro quadrático médio da projeção
      # - dadosproj = matriz contendo os dados projetados
-    for i in range(np.size(dados,axis=0)):
-        dados[i,:]=dados[i,:]-np.mean(dados[i,:])
-    U,D,VT=np.linalg.svd(dados)
-    w=D**2/np.size(dados,axis=1)
+    dadosnm=np.zeros_like(dados)
+    for i in range(np.size(dadosnm,axis=0)):
+        dadosnm[i,:]=dadosnm[i,:]-np.mean(dadosnm[i,:])
+    U,D,VT=np.linalg.svd(dadosnm)
+    w=D**2/np.size(dadosnm,axis=1)
     comps=w.argsort()[::-1] #ordem decrescente
     comps=list(comps[0:m])
     v=U[:,comps]
-    dadosproj=np.dot(v.T,dados)  
+    dadosproj=np.dot(v.T,dadosnm)  
     if m==1:
          dadosproj=dadosproj[0]
     mse=100*(1-sum(w[comps])/sum(w))
