@@ -5,7 +5,7 @@ Universidade Federal de São Paulo
 @author: Adenauer G. CASALI (casali@unifesp.br)
 """
 
-## Este código responde algumas das principais questões envolvendo
+## Este código responde algumas das principais questões dos alunos envolvendo
 #métodos e bibliotecas em Python para a solução das atividades 
 #práticas do curso. Será atualizado na medida em que questões forem
 #surgindo. 
