@@ -351,7 +351,7 @@ def t4_svd(dados,m):
      # - dadosproj = matriz contendo os dados projetados
     dadosnm=np.zeros_like(dados)
     for i in range(np.size(dadosnm,axis=0)):
-        dadosnm[i,:]=dadosnm[i,:]-np.mean(dadosnm[i,:])
+        dadosnm[i,:]=dados[i,:]-np.mean(dados[i,:])
     U,D,VT=np.linalg.svd(dadosnm)
     w=D**2/np.size(dadosnm,axis=1)
     comps=w.argsort()[::-1] #ordem decrescente
