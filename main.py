@@ -357,7 +357,7 @@ def t4_svd(dados,m):
     comps=w.argsort()[::-1] #ordem decrescente
     comps=list(comps[0:m])
     v=U[:,comps]
-    dadosproj=np.dot(v.T,dadosnm)  
+    dadosproj=np.dot(v.T,dados)  
     if m==1:
          dadosproj=dadosproj[0]
     mse=100*(1-sum(w[comps])/sum(w))
